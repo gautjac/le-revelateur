@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(255, 59, 48, 0.12), transparent 55%),
+    radial-gradient(80% 60% at 85% 110%, rgba(244, 165, 34, 0.07), transparent 60%),
+    #0a090c;
+  color: #f3efe6;
+  font-family: 'Archivo', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* faint contact-sheet grid wash behind everything */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(120% 120% at 50% 0%, #000 30%, transparent 90%);
+}
+
+@layer components {
+  .reveal-display {
+    font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+  }
+  .mono {
+    font-family: 'Space Mono', ui-monospace, monospace;
+  }
+
+  /* the developer tray panel */
+  .tray {
+    background:
+      linear-gradient(180deg, rgba(30, 26, 42, 0.72), rgba(13, 12, 15, 0.86));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: var(--tw-shadow, 0 18px 40px -20px rgba(0, 0, 0, 0.9));
+    backdrop-filter: blur(6px);
+  }
+
+  .safelight-ring {
+    box-shadow: 0 0 0 1px rgba(255, 59, 48, 0.45), 0 0 30px -6px rgba(255, 59, 48, 0.5);
+  }
+
+  /* primary action — the "Révéler" button glows like the safelight */
+  .btn-reveal {
+    background: linear-gradient(135deg, #ff3b30, #c41c14);
+    color: #fff;
+    border-radius: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: transform 0.12s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    box-shadow: 0 8px 26px -8px rgba(255, 59, 48, 0.7);
+  }
+  .btn-reveal:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 32px -8px rgba(255, 59, 48, 0.85);
+    filter: brightness(1.05);
+  }
+  .btn-reveal:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(0.4);
+  }
+
+  .btn-ghost {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.03);
+    color: #f3efe6;
+    border-radius: 0.6rem;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+  .btn-ghost:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+}
+
+/* custom range slider */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  outline: none;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ff3b30;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.25);
+}
+input[type='range']::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: none;
+  border-radius: 50%;
+  background: #ff3b30;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
