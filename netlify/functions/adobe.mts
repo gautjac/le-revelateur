@@ -40,12 +40,11 @@ export default async (req: Request, _context: Context) => {
   const clientId = process.env.ADOBE_CLIENT_ID
   const clientSecret = process.env.ADOBE_CLIENT_SECRET
 
-  // Not configured → 204 (with a JSON hint in the body for clients that read it).
+  // Not configured → honest gating. A 204 must carry no body, and some runtimes
+  // reject a 204 + body outright, so we return 200 with { configured: false }.
+  // The client greys the Adobe option whenever configured === false.
   if (!clientId || !clientSecret) {
-    return new Response(JSON.stringify({ configured: false }), {
-      status: 204,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return json({ configured: false }, 200)
   }
 
   let body: Body

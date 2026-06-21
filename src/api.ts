@@ -49,7 +49,7 @@ export async function generateAdobe(opts: {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(opts),
   })
-  // 204 = not configured (no Adobe creds). Honest gating.
+  // 204 (or 200 + { configured:false }) = not configured (no Adobe creds).
   if (res.status === 204) return { configured: false }
   const data = (await res.json().catch(() => null)) as AdobeResult | null
   if (!data) throw new Error(`Adobe error ${res.status}`)
